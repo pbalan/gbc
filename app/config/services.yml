@@ -1,0 +1,21 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/service_container.html
+parameters:
+    #parameter_name: value
+
+services:
+    app.locale_listener:
+            class: AppBundle\Listener\LocaleListener
+            arguments: ['%kernel.default_locale%']
+            tags:
+                - { name: kernel.event_subscriber }
+
+    app.user_locale_listener:
+        class: AppBundle\Listener\UserLocaleListener
+        arguments: ['@session']
+        tags:
+            - { name: kernel.event_listener, event: security.interactive_login, method: onInteractiveLogin }
+
+    app.provider.oauth:
+        class: AppBundle\Security\Core\User\OAuthUserProvider
+        arguments: ["@fos_user.user_manager", {facebook: facebookId, google: googleId, linkedin: linkedInId }, "@app.locale_listener"]

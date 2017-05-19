@@ -1,0 +1,23 @@
+imports:
+    - { resource: ../config.yml }
+    - { resource: ../parameters.yml }
+
+framework:
+    profiler: { only_exceptions: false }
+
+web_profiler:
+    toolbar: true
+    intercept_redirects: false
+
+monolog:
+    handlers:
+        main:
+            type:  stream
+            path:  %kernel.logs_dir%/%kernel.environment%.log
+            # Supported levels are emergency, alert, critical, error, warning, notice, info, debug
+            # Note that "debug" is extremely noisy, even for development
+            level: info
+
+
+#swiftmailer:
+#    delivery_addresses: ['example@mydomain.com']

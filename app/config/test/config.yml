@@ -1,0 +1,10 @@
+imports:
+    - { resource: ../config.yml }
+    - { resource: ../parameters.yml }
+
+framework:
+    profiler: { only_exceptions: false }
+    test: ~
+    session:
+        storage_id: session.storage.mock_file
+
