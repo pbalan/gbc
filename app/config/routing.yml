@@ -1,6 +1,27 @@
-app_api:
+app:
     resource: '@AppBundle/Controller/'
     type: annotation
+
+app_university_api:
+    resource: "@AppBundle/Controller/UniversityRESTController.php"
+    type:   rest
+    prefix: /{_locale}/api/v1
+    requirements:
+        _locale: en|zh
+
+app_company_api:
+    resource: "@AppBundle/Controller/CompanyRESTController.php"
+    type:   rest
+    prefix: /{_locale}/api/v1
+    requirements:
+        _locale: en|zh
+
+app_designation_api:
+    resource: "@AppBundle/Controller/DesignationRESTController.php"
+    type:   rest
+    prefix: /{_locale}/api/v1
+    requirements:
+        _locale: en|zh
 
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
