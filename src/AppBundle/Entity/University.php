@@ -37,11 +37,10 @@ class University
     private $translations;
 
     /**
-     * Company constructor.
+     * University constructor.
      */
-    public function __construct($name)
+    public function __construct()
     {
-        $this->setName($name);
         $this->translations = new ArrayCollection;
     }
 

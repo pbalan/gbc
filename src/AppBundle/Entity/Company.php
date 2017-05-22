@@ -23,7 +23,6 @@ class Company
 
     /**
      * @var string
-     * @Gedmo\Translatable
      * @ORM\Column(type="string", length=255, nullable=false, name="name")
      */
     private $name;
@@ -40,9 +39,8 @@ class Company
     /**
      * Company constructor.
      */
-    public function __construct($name)
+    public function __construct()
     {
-        $this->setName($name);
         $this->translations = new ArrayCollection;
     }
 

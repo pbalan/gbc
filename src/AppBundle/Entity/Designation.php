@@ -37,11 +37,10 @@ class Designation
     private $translations;
 
     /**
-     * Company constructor.
+     * Designation constructor.
      */
-    public function __construct($name)
+    public function __construct()
     {
-        $this->setName($name);
         $this->translations = new ArrayCollection;
     }
 
