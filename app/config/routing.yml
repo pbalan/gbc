@@ -1,3 +1,8 @@
+voryx_rest_translation:
+    resource: "@VoryxRestTranslationBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
@@ -86,3 +91,7 @@ linkedin_login:
     pattern: /{_locale}/login/check-linkedin
     requirements:
         _locale: en|zh
+
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /api/doc

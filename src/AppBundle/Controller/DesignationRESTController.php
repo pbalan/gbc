@@ -10,6 +10,7 @@ use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\View\View as FOSView;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
@@ -29,21 +30,29 @@ class DesignationRESTController extends VoryxController
      *
      * @View(serializerEnableMaxDepthChecks=true)
      *
-     * @return Response
+     * @param Designation $entity
      *
+     * @return Designation
      */
+
     public function getAction(Designation $entity)
     {
         return $entity;
     }
+
     /**
      * Get all Designation entities.
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Get all designations"
+     * )
      *
      * @View(serializerEnableMaxDepthChecks=true)
      *
      * @param ParamFetcherInterface $paramFetcher
      *
-     * @return Response
+     * @return Designation[]|FOSView
      *
      * @QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing notes.")
      * @QueryParam(name="limit", requirements="\d+", default="20", description="How many notes to return.")
@@ -56,7 +65,7 @@ class DesignationRESTController extends VoryxController
             $offset = $paramFetcher->get('offset');
             $limit = $paramFetcher->get('limit');
             $order_by = $paramFetcher->get('order_by');
-            $filters = !is_null($paramFetcher->get('filters')) ? $paramFetcher->get('filters') : array();
+            $filters = !is_null($paramFetcher->get('filters')) ? $paramFetcher->get('filters') : [];
 
             $em = $this->getDoctrine()->getManager();
             $entities = $em->getRepository('AppBundle:Designation')->findBy($filters, $order_by, $limit, $offset);
@@ -69,20 +78,27 @@ class DesignationRESTController extends VoryxController
             return FOSView::create($e->getMessage(), Codes::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
     /**
      * Create a Designation entity.
+     *
+     * @ApiDoc(
+     *  description="Create a new designation",
+     *  input="AppBundle\Form\DesignationType",
+     *  output="AppBundle\Entity\Designation"
+     * )
      *
      * @View(statusCode=201, serializerEnableMaxDepthChecks=true)
      *
      * @param Request $request
      *
-     * @return Response
+     * @return Designation|FOSView
      *
      */
     public function postAction(Request $request)
     {
         $entity = new Designation();
-        $form = $this->createForm(get_class(new DesignationType()), $entity, array("method" => $request->getMethod()));
+        $form = $this->createForm(get_class(new DesignationType()), $entity, ["method" => $request->getMethod()]);
         $this->removeExtraFields($request, $form);
         $form->handleRequest($request);
 
@@ -94,24 +110,25 @@ class DesignationRESTController extends VoryxController
             return $entity;
         }
 
-        return FOSView::create(array('errors' => $form->getErrors()), Codes::HTTP_INTERNAL_SERVER_ERROR);
+        return FOSView::create(['errors' => $form->getErrors()], Codes::HTTP_INTERNAL_SERVER_ERROR);
     }
+
     /**
      * Update a Designation entity.
      *
      * @View(serializerEnableMaxDepthChecks=true)
      *
      * @param Request $request
-     * @param $entity
+     * @param Designation $entity
      *
-     * @return Response
+     * @return Designation|FOSView
      */
     public function putAction(Request $request, Designation $entity)
     {
         try {
             $em = $this->getDoctrine()->getManager();
             $request->setMethod('PATCH'); //Treat all PUTs as PATCH
-            $form = $this->createForm(get_class(new DesignationType()), $entity, array("method" => $request->getMethod()));
+            $form = $this->createForm(get_class(new DesignationType()), $entity, ["method" => $request->getMethod()]);
             $this->removeExtraFields($request, $form);
             $form->handleRequest($request);
             if ($form->isValid()) {
@@ -120,35 +137,38 @@ class DesignationRESTController extends VoryxController
                 return $entity;
             }
 
-            return FOSView::create(array('errors' => $form->getErrors()), Codes::HTTP_INTERNAL_SERVER_ERROR);
+            return FOSView::create(['errors' => $form->getErrors()], Codes::HTTP_INTERNAL_SERVER_ERROR);
         } catch (\Exception $e) {
             return FOSView::create($e->getMessage(), Codes::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
     /**
      * Partial Update to a Designation entity.
      *
      * @View(serializerEnableMaxDepthChecks=true)
      *
      * @param Request $request
-     * @param $entity
+     * @param Designation $entity
      *
-     * @return Response
+     * @return Designation|FOSView
      */
     public function patchAction(Request $request, Designation $entity)
     {
         return $this->putAction($request, $entity);
     }
+
     /**
      * Delete a Designation entity.
      *
      * @View(statusCode=204)
      *
      * @param Request $request
-     * @param $entity
+     * @param Designation $entity
      *
-     * @return Response
+     * @return FOSView|null
      */
+
     public function deleteAction(Request $request, Designation $entity)
     {
         try {

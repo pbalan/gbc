@@ -11,7 +11,7 @@ use Gedmo\Translatable\Translatable;
  * @Gedmo\TranslationEntity(class="AppBundle\Entity\Translation\Designation")
  * @ORM\Table(name="designations")
  */
-class Designation
+class Designation implements Translatable
 {
     /**
      * @var integer

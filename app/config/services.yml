@@ -5,10 +5,10 @@ parameters:
 
 services:
     app.locale_listener:
-            class: AppBundle\Listener\LocaleListener
-            arguments: ['%kernel.default_locale%']
-            tags:
-                - { name: kernel.event_subscriber }
+        class: AppBundle\Listener\LocaleListener
+        arguments: ['%kernel.default_locale%']
+        tags:
+            - { name: kernel.event_subscriber }
 
     app.user_locale_listener:
         class: AppBundle\Listener\UserLocaleListener

@@ -1,0 +1,6 @@
+# parameters
+voryx_rest_translation:
+    namespaces:
+        - AppBundle\Entity
+    locales:
+        - en

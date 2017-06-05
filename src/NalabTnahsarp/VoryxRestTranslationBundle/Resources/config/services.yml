@@ -1,0 +1,12 @@
+services:
+######################################################## SERVICES ######################################################
+    voryx_rest_translation.service.translation:
+        class: NalabTnahsarp\VoryxRestTranslationBundle\Service\Translation
+        arguments: ["@doctrine.orm.entity_manager", "@annotation_reader", "%voryx_rest_translation.locales%"]
+
+##################################################### EVENT LISTENERS ##################################################
+    voryx_rest_translation.event.listener:
+        class: NalabTnahsarp\VoryxRestTranslationBundle\Listener\EventListener
+        arguments: ["@request_stack", "@voryx_rest_translation.service.translation", "%voryx_rest_translation.namespaces%"]
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }

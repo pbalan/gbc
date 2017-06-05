@@ -176,7 +176,13 @@ nelmio_cors:
             allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
             max_age: 3600
 
+nelmio_api_doc: ~
+
 sensio_framework_extra:
     request: { converters: true }
     view:    { annotations: false }
     router:  { annotations: true }
+
+voryx_rest_translation:
+    locales: ["en", "zh"]
+    namespaces: ["AppBundle\Entity"]
