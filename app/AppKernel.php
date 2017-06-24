@@ -23,12 +23,16 @@ class AppKernel extends Kernel
             new Voryx\RESTGeneratorBundle\VoryxRESTGeneratorBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle($this),
+            new Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
+            new Gesdinet\JWTRefreshTokenBundle\GesdinetJWTRefreshTokenBundle(),
             new Nelmio\CorsBundle\NelmioCorsBundle(),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new AppBundle\AppBundle(),
+            new NalabTnahsarp\FriendFollowerBundle\FriendFollowerBundle(),
         ];
 
         // Place custom bundles here
+        $bundles[] = new NalabTnahsarp\ContentManagerBundle\ContentManagerBundle();
         $bundles[] = new NalabTnahsarp\UserGroupBundle\UserGroupBundle();
         $bundles[] = new NalabTnahsarp\VoryxRestTranslationBundle\VoryxRestTranslationBundle();
 

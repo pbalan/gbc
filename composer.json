@@ -8,7 +8,8 @@
         "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },
     "repositories": [
-        { "type": "vcs", "url": "https://bitbucket.org/nalab-tnahsarp/user-group-bundle.git" }
+        { "type": "vcs", "url": "https://bitbucket.org/nalab-tnahsarp/user-group-bundle.git" },
+        { "type": "vcs", "url": "https://bitbucket.org/nalab-tnahsarp/content-manager-bundle.git" }
     ],
     "require": {
         "php": ">=5.6.27",
@@ -18,11 +19,15 @@
         "doctrine/migrations": "^1.0",
         "doctrine/orm": "^2.4.8",
         "friendsofsymfony/user-bundle": "~2.0",
+        "friendsofsymfony/rest-bundle": "~1.7",
+        "gesdinet/jwt-refresh-token-bundle": "~0.1",
         "hwi/oauth-bundle": "^0.5.3",
         "incenteev/composer-parameter-handler": "~2.0",
         "league/flysystem": "^1.0",
         "league/flysystem-gridfs": "^1.0",
+        "lexik/jwt-authentication-bundle": "~2.0",
         "nalab-tnahsarp/user-group-bundle": "dev-master",
+        "nalab-tnahsarp/content-manager-bundle": "dev-master",
         "nelmio/api-doc-bundle": "^2.13",
         "sensio/distribution-bundle": "~4.0",
         "sensio/framework-extra-bundle": "^3.0.2",
@@ -47,10 +52,12 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
         ],
         "post-install-cmd": [
-            "NalabTnahsarp\\UserGroupBundle\\Composer\\ScriptHandler::postInstall"
+            "NalabTnahsarp\\UserGroupBundle\\Composer\\ScriptHandler::postInstall",
+            "NalabTnahsarp\\ContentManagerBundle\\Composer\\ScriptHandler::postInstall"
         ],
         "post-update-cmd": [
-            "NalabTnahsarp\\UserGroupBundle\\Composer\\ScriptHandler::postUpdate"
+            "NalabTnahsarp\\UserGroupBundle\\Composer\\ScriptHandler::postUpdate",
+            "NalabTnahsarp\\ContentManagerBundle\\Composer\\ScriptHandler::postUpdate"
         ]
     },
     "config": {

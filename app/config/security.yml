@@ -1,5 +1,6 @@
 # To get started with security, check out the documentation:
 # http://symfony.com/doc/current/security.html
+
 security:
     encoders:
         FOS\UserBundle\Model\UserInterface: bcrypt
@@ -17,20 +18,19 @@ security:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        main:
-            remember_me:
-                secret: "%secret%"
-                lifetime: 31536000 # 365 days in seconds
-                path: /
-                domain: ~ # Defaults to the current domain from $_SERVER
-                always_remember_me: true
-                remember_me_parameter: _remember_me
-            pattern: ^/
+        login:
+            pattern:  ^/
+            stateless: true
+            anonymous: true
             form_login:
+                login_path: fos_user_security_login
                 provider: fos_userbundle
-                csrf_token_generator: form.csrf_provider
-                login_path: /login
-
+                check_path: /login_check
+                require_previous_session: false
+                username_parameter: _username
+                password_parameter: _password
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
             oauth:
                 provider: fos_userbundle
                 resource_owners:
@@ -39,18 +39,40 @@ security:
                     linkedin: linkedin_login
                 failure_path: app_login
                 login_path: app_login
-
                 oauth_user_provider:
                     service: app.provider.oauth
-            logout: true
+            logout:
+                path:   fos_user_security_logout
+                target: /
+
+        register:
+            pattern:  ^/register
+            stateless: true
             anonymous: true
 
-        login:
-            pattern:  ^/login$
-            security: false
+        api:
+            pattern:  ^/api
+            stateless: true
+            anonymous: false
+            provider: fos_userbundle
+            guard:
+                authenticators:
+                    - app.jwt_token_authenticator
+            lexik_jwt:
+                authorization_header: # check token in Authorization Header
+                    enabled: true
+                    prefix:  Bearer
+
+        refresh:
+            pattern:  ^/api/token/refresh
+            stateless: true
+            anonymous: true
 
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login_check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/token/refresh, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/admin/, role: ROLE_ADMIN }

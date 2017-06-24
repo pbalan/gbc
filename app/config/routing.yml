@@ -1,3 +1,13 @@
+friend_follower:
+    resource: "@FriendFollowerBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+content_manager:
+    resource: "@ContentManagerBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 voryx_rest_translation:
     resource: "@VoryxRestTranslationBundle/Controller/"
     type:     annotation
@@ -51,6 +61,7 @@ fos_user_change_password:
 hwi_oauth_security:
     resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
     prefix: /{_locale}/login
+    prefix: /{_locale}/login
     requirements:
         _locale: en|zh
 
@@ -95,3 +106,7 @@ linkedin_login:
 NelmioApiDocBundle:
     resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
     prefix:   /api/doc
+
+gesdinet_jwt_refresh_token:
+    path:     /api/token/refresh
+    defaults: { _controller: gesdinet.jwtrefreshtoken:refresh }
