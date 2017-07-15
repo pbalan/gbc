@@ -18,6 +18,15 @@ monolog:
             # Note that "debug" is extremely noisy, even for development
             level: info
 
+doctrine:
+    dbal:
+        driver: pdo_mysql
+        host: '%database_host%'
+        port: '%database_port%'
+        dbname: '%database_test_name%'
+        user: '%database_test_user%'
+        password: '%database_test_password%'
+        charset: UTF8
 
 #swiftmailer:
 #    delivery_addresses: ['example@mydomain.com']

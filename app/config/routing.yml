@@ -1,7 +1,7 @@
 friend_follower:
     resource: "@FriendFollowerBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /api/v1
 
 content_manager:
     resource: "@ContentManagerBundle/Controller/"

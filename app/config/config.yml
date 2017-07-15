@@ -166,6 +166,10 @@ lexik_jwt_authentication:
     private_key_path:   '%kernel.root_dir%/../var/jwt/private.pem'
     public_key_path:    '%kernel.root_dir%/../var/jwt/public.pem'
     pass_phrase:        'nalab-tnahsarp'
+    token_extractors:
+        authorization_header: ~
+        cookie: ~
+        query_parameter: ~
 
 fos_rest:
     routing_loader:
@@ -232,4 +236,4 @@ content_manager:
     upload_handler: file_system
     mongo_connection: ~
 
-friend_follower:
+friend_follower: ~
