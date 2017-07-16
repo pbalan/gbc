@@ -1,0 +1,4 @@
+services:
+    friend_follower.friend:
+        class: NalabTnahsarp\FriendFollowerBundle\Service\Friend
+        arguments: ["@doctrine.orm.default_entity_manager"]
